@@ -87,6 +87,14 @@ $STD apt-get install -y sudo
 $STD apt-get install -y mc
 msg_ok "Installed Dependencies"
 
+msg_info "Setting up Node.js Repository"
+$STD bash <(curl -fsSL https://deb.nodesource.com/setup_18.x)
+msg_ok "Set up Node.js Repository"
+
+msg_info "Installing Node.js"
+$STD apt-get install -y nodejs gcc g++ make python net-tools
+msg_ok "Installed Node.js"
+
 msg_info "Installing nodejs (Patience)"
 $STD bash 
 msg_ok "Installed ioBroker"
