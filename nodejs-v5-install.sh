@@ -85,6 +85,7 @@ msg_info "Installing Dependencies"
 $STD apt-get install -y curl
 $STD apt-get install -y sudo
 $STD apt-get install -y mc
+$STD apt-get install -y git
 msg_ok "Installed Dependencies"
 
 msg_info "Setting up Node.js Repository"
@@ -92,12 +93,12 @@ $STD bash <(curl -fsSL https://deb.nodesource.com/setup_18.x)
 msg_ok "Set up Node.js Repository"
 
 msg_info "Installing Node.js"
-$STD apt-get install -y nodejs gcc g++ make python net-tools
+$STD apt-get install -y nodejs
 msg_ok "Installed Node.js"
 
-msg_info "Installing nodejs (Patience)"
-$STD bash 
-msg_ok "Installed ioBroker"
+msg_info "Installing yarn"
+$STD npm install -g --unsafe-perm yarn
+msg_ok "Installed yarn"
 
 PASS=$(grep -w "root" /etc/shadow | cut -b6)
 echo "export TERM='xterm-256color'" >>/root/.bashrc
