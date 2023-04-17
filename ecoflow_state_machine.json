@@ -1,0 +1,1994 @@
+[
+    {
+        "id": "175b5ed5a920ceb1",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a2ba3d1064d15aae",
+        "type": "state-machine",
+        "z": "175b5ed5a920ceb1",
+        "name": "",
+        "triggerProperty": "payload",
+        "triggerPropertyType": "msg",
+        "stateProperty": "payload",
+        "statePropertyType": "msg",
+        "initialDelay": "0",
+        "persistOnReload": true,
+        "outputStateChangeOnly": false,
+        "throwException": false,
+        "states": [
+            "bypass",
+            "aus",
+            "entladen",
+            "laden",
+            "notladen"
+        ],
+        "transitions": [
+            {
+                "name": "aus",
+                "from": "*",
+                "to": "aus"
+            },
+            {
+                "name": "aus_bypass",
+                "from": "aus",
+                "to": "bypass"
+            },
+            {
+                "name": "bypass_laden",
+                "from": "bypass",
+                "to": "laden"
+            },
+            {
+                "name": "laden_bypass",
+                "from": "laden",
+                "to": "bypass"
+            },
+            {
+                "name": "bypass_entladen",
+                "from": "bypass",
+                "to": "entladen"
+            },
+            {
+                "name": "entladen_bypass",
+                "from": "entladen",
+                "to": "bypass"
+            },
+            {
+                "name": "entladen_laden",
+                "from": "entladen",
+                "to": "laden"
+            },
+            {
+                "name": "laden_entladen",
+                "from": "laden",
+                "to": "entladen"
+            },
+            {
+                "name": "bypass_notladen",
+                "from": "bypass",
+                "to": "notladen"
+            },
+            {
+                "name": "notladen_laden",
+                "from": "notladen",
+                "to": "laden"
+            },
+            {
+                "name": "notladen_bypass",
+                "from": "notladen",
+                "to": "bypass"
+            },
+            {
+                "name": "bypass",
+                "from": "*",
+                "to": "bypass"
+            }
+        ],
+        "x": 1160,
+        "y": 480,
+        "wires": [
+            [
+                "fb7bed605404eba3"
+            ]
+        ]
+    },
+    {
+        "id": "e53ec2406ede74f8",
+        "type": "inject",
+        "z": "175b5ed5a920ceb1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "bypass",
+        "payloadType": "str",
+        "x": 610,
+        "y": 800,
+        "wires": [
+            [
+                "a2ba3d1064d15aae"
+            ]
+        ]
+    },
+    {
+        "id": "9717e67a56c7e3eb",
+        "type": "server-state-changed",
+        "z": "175b5ed5a920ceb1",
+        "name": "",
+        "server": "ba77750.285b888",
+        "version": 4,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.delta_max_130188_main_battery",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "num",
+        "haltifstate": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 1,
+        "output_only_on_state_change": true,
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            }
+        ],
+        "x": 270,
+        "y": 540,
+        "wires": [
+            [
+                "a63176c10a49c4df",
+                "a2db78e31b60f7a6",
+                "4025f94a6ed7edf4",
+                "fbbfac3a2ca240d8"
+            ]
+        ]
+    },
+    {
+        "id": "3f7d1e44479088f8",
+        "type": "switch",
+        "z": "175b5ed5a920ceb1",
+        "name": "200W",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "-190",
+                "vt": "str"
+            },
+            {
+                "t": "lte",
+                "v": "-200",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 590,
+        "y": 320,
+        "wires": [
+            [
+                "b86ad691246b27e0",
+                "7c700b869aa35b51"
+            ],
+            [
+                "637c35f6d9a11f69",
+                "e023cd4c4cebbed6",
+                "8864097186a583f5"
+            ]
+        ]
+    },
+    {
+        "id": "e8f0a694b1a545b8",
+        "type": "switch",
+        "z": "175b5ed5a920ceb1",
+        "name": "400W",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "-390",
+                "vt": "str"
+            },
+            {
+                "t": "lte",
+                "v": "-400",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 610,
+        "y": 1180,
+        "wires": [
+            [
+                "922ae764195b3c61"
+            ],
+            [
+                "20add6c2d7983c28"
+            ]
+        ]
+    },
+    {
+        "id": "f9ba88c4ac94361b",
+        "type": "switch",
+        "z": "175b5ed5a920ceb1",
+        "name": "500W",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "-490",
+                "vt": "str"
+            },
+            {
+                "t": "lte",
+                "v": "-500",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 610,
+        "y": 1260,
+        "wires": [
+            [
+                "920fe59b11c07b3f"
+            ],
+            [
+                "cb258090a55aef4b"
+            ]
+        ]
+    },
+    {
+        "id": "20add6c2d7983c28",
+        "type": "change",
+        "z": "175b5ed5a920ceb1",
+        "name": "300_400",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "300_400",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 780,
+        "y": 1200,
+        "wires": [
+            [
+                "9c3339f4f75ee68a"
+            ]
+        ]
+    },
+    {
+        "id": "922ae764195b3c61",
+        "type": "change",
+        "z": "175b5ed5a920ceb1",
+        "name": "400_300",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "400_300",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 780,
+        "y": 1160,
+        "wires": [
+            [
+                "9c3339f4f75ee68a"
+            ]
+        ]
+    },
+    {
+        "id": "cb258090a55aef4b",
+        "type": "change",
+        "z": "175b5ed5a920ceb1",
+        "name": "400_500",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "400_500",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 780,
+        "y": 1280,
+        "wires": [
+            [
+                "9c3339f4f75ee68a"
+            ]
+        ]
+    },
+    {
+        "id": "920fe59b11c07b3f",
+        "type": "change",
+        "z": "175b5ed5a920ceb1",
+        "name": "500_400",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "500_400",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 780,
+        "y": 1240,
+        "wires": [
+            [
+                "9c3339f4f75ee68a"
+            ]
+        ]
+    },
+    {
+        "id": "637c35f6d9a11f69",
+        "type": "change",
+        "z": "175b5ed5a920ceb1",
+        "name": "bypass_laden",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "bypass_laden",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 780,
+        "y": 360,
+        "wires": [
+            [
+                "a2ba3d1064d15aae"
+            ]
+        ]
+    },
+    {
+        "id": "b86ad691246b27e0",
+        "type": "change",
+        "z": "175b5ed5a920ceb1",
+        "name": "laden_bypass",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "laden_bypass",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 780,
+        "y": 260,
+        "wires": [
+            [
+                "a2ba3d1064d15aae"
+            ]
+        ]
+    },
+    {
+        "id": "7c700b869aa35b51",
+        "type": "api-current-state",
+        "z": "175b5ed5a920ceb1",
+        "name": "",
+        "server": "ba77750.285b888",
+        "version": 3,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "sensor.delta_max_130188_main_battery",
+        "state_type": "num",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 900,
+        "y": 200,
+        "wires": [
+            [
+                "94534367ec618197"
+            ]
+        ]
+    },
+    {
+        "id": "8864097186a583f5",
+        "type": "api-current-state",
+        "z": "175b5ed5a920ceb1",
+        "name": "",
+        "server": "ba77750.285b888",
+        "version": 3,
+        "outputs": 1,
+        "halt_if": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "sensor.delta_max_130188_main_battery",
+        "state_type": "num",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 900,
+        "y": 300,
+        "wires": [
+            [
+                "984b922d45bcf820"
+            ]
+        ]
+    },
+    {
+        "id": "cc2a46f43c50ccc9",
+        "type": "server-state-changed",
+        "z": "175b5ed5a920ceb1",
+        "name": "",
+        "server": "ba77750.285b888",
+        "version": 4,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityidfilter": "sensor.shelly_em_channel_1_power",
+        "entityidfiltertype": "exact",
+        "outputinitially": false,
+        "state_type": "num",
+        "haltifstate": "",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "outputs": 1,
+        "output_only_on_state_change": true,
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "ignorePrevStateNull": false,
+        "ignorePrevStateUnknown": false,
+        "ignorePrevStateUnavailable": false,
+        "ignoreCurrentStateUnknown": false,
+        "ignoreCurrentStateUnavailable": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "eventData"
+            }
+        ],
+        "x": 250,
+        "y": 440,
+        "wires": [
+            [
+                "e8f0a694b1a545b8",
+                "f9ba88c4ac94361b",
+                "3f7d1e44479088f8",
+                "426739bf5f3a54eb",
+                "5c50fa9789c83b75"
+            ]
+        ]
+    },
+    {
+        "id": "b5769c8ce46e7d3e",
+        "type": "change",
+        "z": "175b5ed5a920ceb1",
+        "name": "entladen_bypass",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "entladen_bypass",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 790,
+        "y": 580,
+        "wires": [
+            [
+                "a2ba3d1064d15aae"
+            ]
+        ]
+    },
+    {
+        "id": "910683c6beb03e0f",
+        "type": "change",
+        "z": "175b5ed5a920ceb1",
+        "name": "laden_entladen",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "laden_entladen",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 780,
+        "y": 520,
+        "wires": [
+            [
+                "a2ba3d1064d15aae"
+            ]
+        ]
+    },
+    {
+        "id": "01fb226628bca967",
+        "type": "change",
+        "z": "175b5ed5a920ceb1",
+        "name": "bypass_entladen",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "bypass_entladen",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1390,
+        "y": 200,
+        "wires": [
+            [
+                "a2ba3d1064d15aae"
+            ]
+        ]
+    },
+    {
+        "id": "09d0a1c3e6a0dece",
+        "type": "change",
+        "z": "175b5ed5a920ceb1",
+        "name": "entladen_laden",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "entladen_laden",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1380,
+        "y": 300,
+        "wires": [
+            [
+                "a2ba3d1064d15aae"
+            ]
+        ]
+    },
+    {
+        "id": "a63176c10a49c4df",
+        "type": "switch",
+        "z": "175b5ed5a920ceb1",
+        "name": "80%",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "80",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 590,
+        "y": 520,
+        "wires": [
+            [
+                "910683c6beb03e0f"
+            ]
+        ]
+    },
+    {
+        "id": "a2db78e31b60f7a6",
+        "type": "switch",
+        "z": "175b5ed5a920ceb1",
+        "name": "23%",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lte",
+                "v": "23",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 590,
+        "y": 580,
+        "wires": [
+            [
+                "b5769c8ce46e7d3e"
+            ]
+        ]
+    },
+    {
+        "id": "570f431136254a5f",
+        "type": "inject",
+        "z": "175b5ed5a920ceb1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "aus",
+        "payloadType": "str",
+        "x": 610,
+        "y": 760,
+        "wires": [
+            [
+                "a2ba3d1064d15aae"
+            ]
+        ]
+    },
+    {
+        "id": "94534367ec618197",
+        "type": "switch",
+        "z": "175b5ed5a920ceb1",
+        "name": ">60%",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "40",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1210,
+        "y": 200,
+        "wires": [
+            [
+                "01fb226628bca967"
+            ]
+        ]
+    },
+    {
+        "id": "984b922d45bcf820",
+        "type": "switch",
+        "z": "175b5ed5a920ceb1",
+        "name": "<70%",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lte",
+                "v": "70",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1210,
+        "y": 300,
+        "wires": [
+            [
+                "09d0a1c3e6a0dece"
+            ]
+        ]
+    },
+    {
+        "id": "3b38ac85ae63d450",
+        "type": "switch",
+        "z": "175b5ed5a920ceb1",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "aus",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "bypass",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "entladen",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "laden",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "notladen",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 5,
+        "x": 1350,
+        "y": 520,
+        "wires": [
+            [],
+            [
+                "4e7aa2acb26e3efe",
+                "0d70448d19b5685b",
+                "8a6fbc18ea940c75",
+                "f73f724f9b6ddb62"
+            ],
+            [
+                "8a6fbc18ea940c75",
+                "90649bf92263f643",
+                "f73f724f9b6ddb62"
+            ],
+            [
+                "bfd86b149c3d93e2",
+                "4e7aa2acb26e3efe"
+            ],
+            [
+                "bfd86b149c3d93e2"
+            ]
+        ]
+    },
+    {
+        "id": "90649bf92263f643",
+        "type": "api-call-service",
+        "z": "175b5ed5a920ceb1",
+        "name": "AC input OFF",
+        "server": "ba77750.285b888",
+        "version": 5,
+        "debugenabled": true,
+        "domain": "switch",
+        "service": "turn_off",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "switch.eve_energy_0c27_3"
+        ],
+        "data": "",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1600,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "02656df604695bea",
+        "type": "api-call-service",
+        "z": "175b5ed5a920ceb1",
+        "name": "Charge Level 400W",
+        "server": "ba77750.285b888",
+        "version": 5,
+        "debugenabled": true,
+        "domain": "number",
+        "service": "set_value",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "number.delta_max_130188_ac_charge_speed"
+        ],
+        "data": "{\"value\":400}",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1570,
+        "y": 1140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "88e654262e67990f",
+        "type": "api-call-service",
+        "z": "175b5ed5a920ceb1",
+        "name": "Charge Level 500W",
+        "server": "ba77750.285b888",
+        "version": 5,
+        "debugenabled": true,
+        "domain": "number",
+        "service": "set_value",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "number.delta_max_130188_ac_charge_speed"
+        ],
+        "data": "{\"value\":500}",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1570,
+        "y": 1200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5e56c47395884e1f",
+        "type": "api-call-service",
+        "z": "175b5ed5a920ceb1",
+        "name": "Charge Level 200W",
+        "server": "ba77750.285b888",
+        "version": 5,
+        "debugenabled": true,
+        "domain": "number",
+        "service": "set_value",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "number.delta_max_130188_ac_charge_speed"
+        ],
+        "data": "{\"value\":200}",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1570,
+        "y": 1020,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4025f94a6ed7edf4",
+        "type": "switch",
+        "z": "175b5ed5a920ceb1",
+        "name": "20%",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lte",
+                "v": "20",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 590,
+        "y": 640,
+        "wires": [
+            [
+                "ee96de516163c7f6"
+            ]
+        ]
+    },
+    {
+        "id": "ee96de516163c7f6",
+        "type": "change",
+        "z": "175b5ed5a920ceb1",
+        "name": "bypass_notladen",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "bypass_notladen",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 790,
+        "y": 640,
+        "wires": [
+            [
+                "a2ba3d1064d15aae"
+            ]
+        ]
+    },
+    {
+        "id": "fbbfac3a2ca240d8",
+        "type": "switch",
+        "z": "175b5ed5a920ceb1",
+        "name": "25%",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "25",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 590,
+        "y": 700,
+        "wires": [
+            [
+                "7679b63bc9fc15a7"
+            ]
+        ]
+    },
+    {
+        "id": "7679b63bc9fc15a7",
+        "type": "change",
+        "z": "175b5ed5a920ceb1",
+        "name": "notladen_bypass",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "notladen_bypass",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 790,
+        "y": 700,
+        "wires": [
+            [
+                "a2ba3d1064d15aae"
+            ]
+        ]
+    },
+    {
+        "id": "e023cd4c4cebbed6",
+        "type": "change",
+        "z": "175b5ed5a920ceb1",
+        "name": "notladen_laden",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "notladen_laden",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 780,
+        "y": 400,
+        "wires": [
+            [
+                "a2ba3d1064d15aae"
+            ]
+        ]
+    },
+    {
+        "id": "bfd86b149c3d93e2",
+        "type": "api-call-service",
+        "z": "175b5ed5a920ceb1",
+        "name": "Charge ON",
+        "server": "ba77750.285b888",
+        "version": 5,
+        "debugenabled": true,
+        "domain": "switch",
+        "service": "turn_on",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "switch.delta_max_130188_ac_charge"
+        ],
+        "data": "",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1570,
+        "y": 720,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8a6fbc18ea940c75",
+        "type": "api-call-service",
+        "z": "175b5ed5a920ceb1",
+        "name": "Charge OFF",
+        "server": "ba77750.285b888",
+        "version": 5,
+        "debugenabled": true,
+        "domain": "switch",
+        "service": "turn_off",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "switch.delta_max_130188_ac_charge"
+        ],
+        "data": "",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1610,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4e7aa2acb26e3efe",
+        "type": "api-call-service",
+        "z": "175b5ed5a920ceb1",
+        "name": "AC input ON",
+        "server": "ba77750.285b888",
+        "version": 5,
+        "debugenabled": true,
+        "domain": "switch",
+        "service": "turn_on",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "switch.eve_energy_0c27_3"
+        ],
+        "data": "",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1570,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0d70448d19b5685b",
+        "type": "api-call-service",
+        "z": "175b5ed5a920ceb1",
+        "name": "AC out ON",
+        "server": "ba77750.285b888",
+        "version": 5,
+        "debugenabled": true,
+        "domain": "switch",
+        "service": "turn_on",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "switch.delta_max_130188_ac_output"
+        ],
+        "data": "",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1570,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7742fcff6d820344",
+        "type": "api-call-service",
+        "z": "175b5ed5a920ceb1",
+        "name": "Zustand an HA",
+        "server": "ba77750.285b888",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "input_select",
+        "service": "select_option",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_select.ecoflow_state_130899"
+        ],
+        "data": "{\"option\":msg.payload}",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1300,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "426739bf5f3a54eb",
+        "type": "switch",
+        "z": "175b5ed5a920ceb1",
+        "name": "300W",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gte",
+                "v": "-290",
+                "vt": "str"
+            },
+            {
+                "t": "lt",
+                "v": "-300",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 610,
+        "y": 1080,
+        "wires": [
+            [
+                "05e49979e8d959c2"
+            ],
+            [
+                "3d0e7f790c85b38e"
+            ]
+        ]
+    },
+    {
+        "id": "3d0e7f790c85b38e",
+        "type": "change",
+        "z": "175b5ed5a920ceb1",
+        "name": "200_300",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "200_300",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 780,
+        "y": 1100,
+        "wires": [
+            [
+                "9c3339f4f75ee68a"
+            ]
+        ]
+    },
+    {
+        "id": "05e49979e8d959c2",
+        "type": "change",
+        "z": "175b5ed5a920ceb1",
+        "name": "300_200",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "300_200",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 780,
+        "y": 1060,
+        "wires": [
+            [
+                "9c3339f4f75ee68a"
+            ]
+        ]
+    },
+    {
+        "id": "e85ccf33f68f7d03",
+        "type": "api-call-service",
+        "z": "175b5ed5a920ceb1",
+        "name": "Charge Level 300W",
+        "server": "ba77750.285b888",
+        "version": 5,
+        "debugenabled": true,
+        "domain": "number",
+        "service": "set_value",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "number.delta_max_130188_ac_charge_speed"
+        ],
+        "data": "{\"value\":300}",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1570,
+        "y": 1080,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5c50fa9789c83b75",
+        "type": "function",
+        "z": "175b5ed5a920ceb1",
+        "name": "no value to bypass",
+        "func": "if (msg.payload == null || isNaN(msg.payload))\nmsg.payload = \"bypass\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ec941dbf85109e08",
+        "type": "comment",
+        "z": "175b5ed5a920ceb1",
+        "name": "Zustandsautomat DELTA_130188",
+        "info": "# AUS\ndefault\nüber button in HA\n\n# Bypass",
+        "x": 190,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "fb7bed605404eba3",
+        "type": "rbe",
+        "z": "175b5ed5a920ceb1",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": false,
+        "property": "payload",
+        "topi": "topic",
+        "x": 1130,
+        "y": 620,
+        "wires": [
+            [
+                "3b38ac85ae63d450",
+                "7742fcff6d820344",
+                "9c3339f4f75ee68a"
+            ]
+        ]
+    },
+    {
+        "id": "fbcbfe4594b96f15",
+        "type": "ha-button",
+        "z": "175b5ed5a920ceb1",
+        "name": "AUS_BYP",
+        "version": 0,
+        "debugenabled": false,
+        "outputs": 1,
+        "entityConfig": "dba2a31678a913c7",
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "bypass",
+                "valueType": "str"
+            }
+        ],
+        "x": 940,
+        "y": 820,
+        "wires": [
+            [
+                "a2ba3d1064d15aae"
+            ]
+        ]
+    },
+    {
+        "id": "1a2b6f07e123ad02",
+        "type": "ha-button",
+        "z": "175b5ed5a920ceb1",
+        "name": "AUS",
+        "version": 0,
+        "debugenabled": false,
+        "outputs": 1,
+        "entityConfig": "19df1f143473893c",
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "aus",
+                "valueType": "str"
+            },
+            {
+                "property": "topic",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "triggerId"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "x": 910,
+        "y": 740,
+        "wires": [
+            [
+                "a2ba3d1064d15aae"
+            ]
+        ]
+    },
+    {
+        "id": "9c3339f4f75ee68a",
+        "type": "state-machine",
+        "z": "175b5ed5a920ceb1",
+        "name": "",
+        "triggerProperty": "payload",
+        "triggerPropertyType": "msg",
+        "stateProperty": "payload",
+        "statePropertyType": "msg",
+        "initialDelay": "0",
+        "persistOnReload": true,
+        "outputStateChangeOnly": false,
+        "throwException": false,
+        "states": [
+            "200W",
+            "300W",
+            "400W",
+            "500W"
+        ],
+        "transitions": [
+            {
+                "name": "laden",
+                "from": "*",
+                "to": "200W"
+            },
+            {
+                "name": "200_300",
+                "from": "200W",
+                "to": "300W"
+            },
+            {
+                "name": "300_200",
+                "from": "300W",
+                "to": "200W"
+            },
+            {
+                "name": "300_400",
+                "from": "300W",
+                "to": "400W"
+            },
+            {
+                "name": "400_300",
+                "from": "400W",
+                "to": "300W"
+            },
+            {
+                "name": "400_500",
+                "from": "400W",
+                "to": "500W"
+            },
+            {
+                "name": "500_400",
+                "from": "500W",
+                "to": "400W"
+            },
+            {
+                "name": "notladen",
+                "from": "*",
+                "to": "200W"
+            }
+        ],
+        "x": 1000,
+        "y": 1120,
+        "wires": [
+            [
+                "79dcdba1f606c5e3"
+            ]
+        ]
+    },
+    {
+        "id": "90749612e00491af",
+        "type": "switch",
+        "z": "175b5ed5a920ceb1",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "200W",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "300W",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "400W",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "500W",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 1310,
+        "y": 1120,
+        "wires": [
+            [
+                "5e56c47395884e1f"
+            ],
+            [
+                "e85ccf33f68f7d03"
+            ],
+            [
+                "02656df604695bea"
+            ],
+            [
+                "88e654262e67990f"
+            ]
+        ]
+    },
+    {
+        "id": "79dcdba1f606c5e3",
+        "type": "rbe",
+        "z": "175b5ed5a920ceb1",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 1170,
+        "y": 1120,
+        "wires": [
+            [
+                "90749612e00491af"
+            ]
+        ]
+    },
+    {
+        "id": "0c14ef2947c48abb",
+        "type": "inject",
+        "z": "175b5ed5a920ceb1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "-255",
+        "payloadType": "num",
+        "x": 270,
+        "y": 1060,
+        "wires": [
+            [
+                "426739bf5f3a54eb",
+                "e8f0a694b1a545b8",
+                "f9ba88c4ac94361b"
+            ]
+        ]
+    },
+    {
+        "id": "6684d84bc4b02d77",
+        "type": "inject",
+        "z": "175b5ed5a920ceb1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "-155",
+        "payloadType": "num",
+        "x": 270,
+        "y": 1120,
+        "wires": [
+            [
+                "426739bf5f3a54eb",
+                "e8f0a694b1a545b8",
+                "f9ba88c4ac94361b"
+            ]
+        ]
+    },
+    {
+        "id": "eafbe274e387c4b2",
+        "type": "inject",
+        "z": "175b5ed5a920ceb1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "-355",
+        "payloadType": "num",
+        "x": 270,
+        "y": 1200,
+        "wires": [
+            [
+                "426739bf5f3a54eb",
+                "e8f0a694b1a545b8",
+                "f9ba88c4ac94361b"
+            ]
+        ]
+    },
+    {
+        "id": "400761fefddfd922",
+        "type": "inject",
+        "z": "175b5ed5a920ceb1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "-455",
+        "payloadType": "num",
+        "x": 270,
+        "y": 1280,
+        "wires": [
+            [
+                "426739bf5f3a54eb",
+                "e8f0a694b1a545b8",
+                "f9ba88c4ac94361b"
+            ]
+        ]
+    },
+    {
+        "id": "98166ebf1fa79fe8",
+        "type": "inject",
+        "z": "175b5ed5a920ceb1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "-555",
+        "payloadType": "num",
+        "x": 270,
+        "y": 1340,
+        "wires": [
+            [
+                "f9ba88c4ac94361b",
+                "e8f0a694b1a545b8",
+                "426739bf5f3a54eb"
+            ]
+        ]
+    },
+    {
+        "id": "9fcf0088a73faca6",
+        "type": "inject",
+        "z": "175b5ed5a920ceb1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "bypass_entladen",
+        "payloadType": "str",
+        "x": 620,
+        "y": 840,
+        "wires": [
+            [
+                "a2ba3d1064d15aae"
+            ]
+        ]
+    },
+    {
+        "id": "57fed87f2db6daab",
+        "type": "inject",
+        "z": "175b5ed5a920ceb1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "entladen_bypass",
+        "payloadType": "str",
+        "x": 620,
+        "y": 880,
+        "wires": [
+            [
+                "a2ba3d1064d15aae"
+            ]
+        ]
+    },
+    {
+        "id": "4a2396ac713dc5fb",
+        "type": "inject",
+        "z": "175b5ed5a920ceb1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "entladen_laden",
+        "payloadType": "str",
+        "x": 620,
+        "y": 920,
+        "wires": [
+            [
+                "a2ba3d1064d15aae"
+            ]
+        ]
+    },
+    {
+        "id": "fb774ebc10dadbfb",
+        "type": "inject",
+        "z": "175b5ed5a920ceb1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "laden_entladen",
+        "payloadType": "str",
+        "x": 620,
+        "y": 960,
+        "wires": [
+            [
+                "a2ba3d1064d15aae"
+            ]
+        ]
+    },
+    {
+        "id": "f73f724f9b6ddb62",
+        "type": "delay",
+        "z": "175b5ed5a920ceb1",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "12",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1570,
+        "y": 400,
+        "wires": [
+            [
+                "8a6fbc18ea940c75"
+            ]
+        ]
+    },
+    {
+        "id": "c5e5460fa50526d4",
+        "type": "inject",
+        "z": "175b5ed5a920ceb1",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "bypass_laden",
+        "payloadType": "str",
+        "x": 610,
+        "y": 1000,
+        "wires": [
+            [
+                "a2ba3d1064d15aae"
+            ]
+        ]
+    },
+    {
+        "id": "ba77750.285b888",
+        "type": "server",
+        "name": "Home Assistant",
+        "addon": true,
+        "rejectUnauthorizedCerts": true,
+        "ha_boolean": "",
+        "connectionDelay": false,
+        "cacheJson": false,
+        "heartbeat": false,
+        "heartbeatInterval": "",
+        "statusSeparator": "",
+        "enableGlobalContextStore": false
+    },
+    {
+        "id": "dba2a31678a913c7",
+        "type": "ha-entity-config",
+        "server": "ba77750.285b888",
+        "deviceConfig": "",
+        "name": "Automat_130899_EIN",
+        "version": "6",
+        "entityType": "button",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Automat_130899_EIN"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "19df1f143473893c",
+        "type": "ha-entity-config",
+        "server": "ba77750.285b888",
+        "deviceConfig": "",
+        "name": "Zustand_130899_AUS",
+        "version": "6",
+        "entityType": "button",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Zustand_130899_AUS"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    }
+]
