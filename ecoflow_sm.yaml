@@ -1,0 +1,18 @@
+input_select:
+  ecoflow_state_130188:
+    name: Zustand Ecoflow Automat
+    options:
+     - aus
+     - bypass
+     - laden
+     - notladen
+     - entladen
+
+  ecoflow_state_151099:
+    name: Zustand Ecoflow Automat
+    options:
+     - aus
+     - bypass
+     - laden
+     - notladen
+     - entladen
